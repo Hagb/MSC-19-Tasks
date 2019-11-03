@@ -30,7 +30,7 @@ void sigint(int param){
 	printf("Goodbye!\n");
 	exit(0);
 }
-int main(){
+int main(void){
 	const int color[]={
 		COLOR_RED,
 		COLOR_GREEN,
