@@ -1,3 +1,20 @@
+/*    
+      一个 c语言+ncursesw 的贪吃蛇
+      Copyright (C) 2019 郭俊余(Hagb)
+
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+      */
 #include <ncursesw/ncurses.h>
 #include <locale.h>
 #include <signal.h>
@@ -5,6 +22,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include "img.h"
 #define SNAKE 1
 #define BLOCK 2
 #define FOOD 3
@@ -90,8 +108,6 @@ sigint (int param)
     clear ();
     refresh ();
     endwin ();
-    free (block);
-    free (dir);
     printf ("Score: %u\nGoodbey!\n", score);
     exit (0);
 }
@@ -117,6 +133,46 @@ addFood (void)
     block[pointer] = FOOD;
     emptynum--;
     drawPoint (pointer % xnum, pointer / xnum);
+}
+
+void
+drawImg (void)
+{
+    unsigned int starty, startx;
+    double k, w, h;
+    if (xnum * height >= ynum * width)
+      {
+          starty = ynum / 6 - 1;
+          h = (double) ynum *2 / 3;
+          k = (double) height / h;
+          w = h * width / height;
+          startx = xnum / 2 - w / 2 - 1;
+      }
+    else
+      {
+          startx = xnum / 6 - 1;
+          w = (double) xnum *2 / 3;
+          k = ((double) width) / w;
+          h = w * height / width;
+          starty = ynum / 2 - h / 2 - 1;
+      }
+    for (unsigned int xoffest = 0; xoffest < w; xoffest++)
+        for (unsigned int yoffest = 0; yoffest < h; yoffest++)
+            if (header_data
+                [(unsigned int) (xoffest * k) +
+                 width * (unsigned int) (yoffest * k)])
+
+              {
+                  blockxy (startx + xoffest, starty + yoffest) = BLOCK;
+                  emptynum--;
+              }
+/*    for (unsigned int xoffest=0; xoffest<w;xoffest++)
+	    if(!blockxy(startx+xoffest,starty+(unsigned int)h) && header_data[(unsigned int)(xoffest*k)+(height-1)*width]){
+		    blockxy(startx+xoffest,starty+(unsigned int)h)=BLOCK;
+		    emptynum--;
+	    }*/
+
+
 }
 
 int
@@ -149,11 +205,11 @@ main (void)
     dir[0] = XUP;
     blockxy (0, 0) = SNAKE;
     unsigned int snakepointer = 0;
-    addFood ();
     drawInfo ();
     drawFrame ();
+    drawImg ();
     drawAllPoint ();
-
+    addFood ();
     while (1)
       {
           const unsigned int pointer1 = (snakepointer + score) % num;
