@@ -3,6 +3,6 @@
 
 本程序在 GPLv3 下。
 ## 效果图
-TODO
+![效果图](screenshot.gif)
 ## 依赖
 - ncursesw

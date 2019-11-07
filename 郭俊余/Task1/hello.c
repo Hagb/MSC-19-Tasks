@@ -21,52 +21,74 @@
 #include <unistd.h>
 #include <signal.h>
 #include <time.h>
+#include <stdio.h>
 #include "img.h"
-#define ONCETIME 2000*1000 //in us
-void sigint(int param){
-	clear();
-	refresh();
-	endwin();
-	printf("Goodbye!\n");
-	exit(0);
+#define ONCETIME 2000*1000      //in us
+void
+sigint (int param)
+{
+    clear ();
+    refresh ();
+    endwin ();
+    printf ("Goodbye!\n");
+    exit (0);
 }
-int main(void){
-	const int color[]={
-		COLOR_RED,
-		COLOR_GREEN,
-		COLOR_YELLOW,
-		COLOR_BLUE,
-		COLOR_MAGENTA,
-		COLOR_CYAN,
-		COLOR_WHITE
-	};
-	const unsigned int colorn=sizeof(color)/sizeof(color[0]);
-	srand((unsigned)time(NULL));
-	setlocale(LC_ALL,"");
-	printf("Hello,world!\n(And try to press Enter please)");
-	getchar();
-	initscr();
-	start_color();
-	for(unsigned short num=0;num<colorn;num++) init_pair(num,color[num],COLOR_BLACK);
-	cbreak();
-	noecho();
-	signal (SIGINT, sigint);
-	const long double s=((long double)LINES)/height;
-	const long double s2=((long double)height)/(LINES*2);
-	const unsigned int DELAY=ONCETIME/COLS;
-	int colorpair;
-	char mode=0;
-	char isColor=has_colors()&&can_change_color();
-	for(unsigned int offest=0; offest+1!=0;refresh(),usleep(DELAY),clear(),offest++) 
-		for(unsigned int w=0; w<=COLS;w++)
-			for(unsigned int h=0; h<=LINES-1;h++){
-				char b1=header_data[((unsigned int)((offest+w)*s2))%width+(unsigned int)(2*h*s2)*width];
-				char b2=header_data[((unsigned int)((offest+w)*s2))%width+(unsigned int)((2*h+1)*s2)*width];
-				if(b1||b2){
-					if(((unsigned int)(((offest+w)*s2))/width)%2) attron(colorpair=COLOR_PAIR(rand()%colorn));
-					mvaddstr(h,w, b1&&b2 ? "█" : b1 ? "▀" : "▄" );
-					if(((unsigned int)(((offest+w)*s2))/width)%2) attroff(colorpair);
-				}
-			}
-	sigint(0);
+
+int
+main (void)
+{
+    const int color[] = {
+        COLOR_RED,
+        COLOR_GREEN,
+        COLOR_YELLOW,
+        COLOR_BLUE,
+        COLOR_MAGENTA,
+        COLOR_CYAN,
+        COLOR_WHITE
+    };
+    const unsigned int colorn = sizeof (color) / sizeof (color[0]);
+    srand ((unsigned) time (NULL));
+    setlocale (LC_ALL, "");
+    printf ("Hello,world!\n(And try to press Enter please)");
+    getchar ();
+    initscr ();
+    start_color ();
+    for (unsigned short num = 0; num < colorn; num++)
+        init_pair (num, color[num], COLOR_BLACK);
+    cbreak ();
+    noecho ();
+    signal (SIGINT, sigint);
+    const long double s = ((long double) LINES) / height;
+    const long double s2 = ((long double) height) / (LINES * 2);
+    const unsigned int DELAY = ONCETIME / COLS;
+    int colorpair;
+    char mode = 0;
+    char isColor = has_colors () && can_change_color ();
+    for (unsigned int offest = 0; offest + 1 != 0;
+         refresh (), usleep (DELAY), clear (), offest++)
+        for (unsigned int w = 0; w <= COLS; w++)
+            for (unsigned int h = 0; h <= LINES - 1; h++)
+              {
+                  char b1 =
+                      header_data[((unsigned int) ((offest + w) * s2)) %
+                                  width +
+                                  (unsigned int) (2 * h * s2) * width];
+                  char b2 =
+                      header_data[((unsigned int) ((offest + w) * s2)) %
+                                  width +
+                                  (unsigned int) ((2 * h + 1) * s2) * width];
+                  if (b1 || b2)
+                    {
+                        if (((unsigned int) (((offest + w) * s2)) / width) %
+                            2)
+                            attron (colorpair =
+                                    COLOR_PAIR (rand () % colorn));
+                        mvaddstr (h, w, b1
+                                  && b2 ? "█" : b1 ? "▀" : "▄");
+                        if (((unsigned int) (((offest + w) * s2)) / width) %
+                            2)
+                            attroff (colorpair);
+                    }
+              }
+    sigint (0);
 }
