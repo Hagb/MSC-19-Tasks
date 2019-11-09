@@ -17,7 +17,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . config
-srgPass=efdfdfuuyyuuckjg
+argPass=efdfdfuuyyuuckjg
 argUser=txt_dsdsdsdjkjkjc
 argType=Sel_Type
 loginPage=http://jxgl.cqu.edu.cn/_data/index_login.aspx
@@ -72,7 +72,7 @@ then
 	getScheme && exit 0
 fi
 [ -z "$user" ] && echo 'Student ID (You can also set it in configure file "config"): ' && read user
-[ -z "$pass" ] && echo 'Password (You can also set it in configure file "config"): ' && read -s password
+[ -z "$password" ] && echo 'Password (You can also set it in configure file "config"): ' && read -s password
 text="$(curl -d "$argType=STU&$argUser=20191798&$argPass=$(getEcryptedPass "$user" "$password")" -c "$cookiesfile"  "$loginPage" | iconv -f GBK -t UTF-8 | sed -n '/<span id="divLogNote"><font color="White">/{s/.*<span id="divLogNote">//;s/<[^>]*>//g;p}')"
 if [[ ! "$text" =~ '正在加载权限数据...' ]];
 then
