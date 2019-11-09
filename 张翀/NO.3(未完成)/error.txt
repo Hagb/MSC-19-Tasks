@@ -1,0 +1,3 @@
+16388号错误：签名无效
+已按照样例（https://ai.qq.com/doc/auth.shtml）生成sign，与给出结果一致，具体错因未知
+msg : sign invalid
