@@ -1,0 +1,17 @@
+﻿  Snake.cpp
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(37,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(37,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(38,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(38,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(39,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  UI.cpp
+  源.cpp
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(39,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(37,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(37,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(38,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(38,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(39,65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  正在生成代码...
+C:\Users\M\Desktop\Programs\snake\snake\Snake.h(39,37): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  snake.vcxproj -> C:\Users\M\Desktop\Programs\snake\Debug\snake.exe
